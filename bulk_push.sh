@@ -7,7 +7,7 @@ user="USERNAME"  # Replace with your Gitea username
 reposFile="repos.txt"  # File containing GitHub repos
 
 # Path where you want to store the cloned repos temporarily
-tempClonePath="/path/to/temp/clone"  # Change this path as needed
+tempClonePath="$HOME/repos"  # Change this path as needed
 
 # Read the repository URLs from the file
 while IFS= read -r repoUrl; do
@@ -39,16 +39,23 @@ while IFS= read -r repoUrl; do
     fi
 
     # Clone the GitHub repository
-    echo "Cloning GitHub repo: $repoUrl"
     clonePath="$tempClonePath/$repoName"
-    git clone "$repoUrl" "$clonePath"
+    if [ -d $clonePath ]; then
+        echo "Pulling latest changes"
+        cd $clonePath
+        git pull
+    else
+        echo "Cloning GitHub repo: $repoUrl"
+        git clone "$repoUrl" "$clonePath"
+    fi
 
     # Push the repository to Gitea
     echo "Pushing repository $repoName to Gitea..."
     cd "$clonePath" || exit
 
     # Set the remote origin to point to the Gitea repository
-    giteaRepoUrl="http://$user:$token@gitea.<domain>:port/$user/$repoName.git"
+    dynamic_gitea_url=$(echo $giteaUrl | tr -d 'http://')
+    giteaRepoUrl="http://$user:$token@$dynamic_gitea_url/$user/$repoName.git"
     git remote set-url origin "$giteaRepoUrl"
 
     # Push the content to the Gitea repository
