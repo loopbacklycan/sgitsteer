@@ -49,7 +49,7 @@ This script will first clone the repositories from GitHub and then push them to 
     - Ensure `$reposFile` points to the `repos.txt` file you created.
     - Set `$tempClonePath` to the location where you want to clone the repositories temporarily.
 
-3. Run the **bulk_push.ps1** or **.sh** for Linux script:
+3. Run the **bulk_push.ps1** or **bulk_push.sh** for Linux script:
 
     Open PowerShell or Terminal and navigate to the directory where the script is located, and run:
 
