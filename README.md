@@ -6,7 +6,7 @@
 
 # Bulk Clone and Bulk Push for GitHub to Gitea
 
-This repository contains a **PowerShell script** that combines both **bulk cloning** GitHub repositories and **pushing** them to your self-hosted Gitea server. It allows you to easily clone multiple repositories from GitHub and push them to your Gitea server, without having to do it manually for each repository.
+This repository contains a **PowerShell script** and a **Bash Script** that combines both **bulk cloning** GitHub repositories and **pushing** them to your self-hosted Gitea server. It allows you to easily clone multiple repositories from GitHub and push them to your Gitea server, without having to do it manually for each repository.
 
 ## Overview
 
@@ -21,7 +21,7 @@ Before using this script, you must have the following:
 
 1. A **Gitea** server set up and running (self-hosted or otherwise).
 2. **Git** installed on your machine.
-3. **PowerShell** installed (comes pre-installed on most Windows systems).
+3. **PowerShell** installed (comes pre-installed on most Windows systems) or **Bash Linux**
 4. A **Personal Access Token** (PAT) for Gitea with repository creation and push permissions.
 5. A `repos.txt` file that contains the GitHub repository URLs that you want to clone.
 
@@ -45,16 +45,16 @@ This script will first clone the repositories from GitHub and then push them to 
 2. Modify the script **bulk_clone_and_push.ps1** with the following details:
     - Replace the `$giteaUrl` with your Gitea server URL (e.g., `http://gitea.homelab:3000`).
     - Replace the `$token` with your Gitea Personal Access Token.
-    - Replace the `$user` with your Gitea username or organization name.
+    - Replace the `$user` with your Gitea username or organization name.(not your login uesername, but your profile username)
     - Ensure `$reposFile` points to the `repos.txt` file you created.
     - Set `$tempClonePath` to the location where you want to clone the repositories temporarily.
 
-3. Run the **bulk_push.ps1** or .sh for Linux script:
+3. Run the **bulk_push.ps1** or **.sh** for Linux script:
 
-    Open PowerShell, navigate to the directory where the script is located, and run:
+    Open PowerShell or Terminal and navigate to the directory where the script is located, and run:
 
     ```bash
-    .\bulk_clone_and_push.ps1
+    .\bulk_push.ps1
     or
     bash bulk_push.sh
     ```
@@ -96,11 +96,5 @@ Here’s the full PowerShell script that combines both the bulk clone and bulk p
 
   Write-Host "Repository $repoName pushed to Gitea successfully!"
 
-    
 
-### How to Use:
-- Copy and paste the above content into a file named `README.md` in your repository.
-- The Markdown will be properly rendered when viewed on GitHub, GitLab, or any platform that supports Markdown files.
-
-Let me know if you need any more adjustments!
-
+  ## Feel free to reach out with any issues or questions
