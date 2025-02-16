@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # Your Gitea server details
 giteaUrl="http://your-gitea.address"  # Replace with your Gitea URL
 token="your-gitea-token"  # Replace with your Personal Access Token
@@ -23,7 +22,7 @@ while IFS= read -r repoUrl; do
         echo "Repository $repoName already exists on Gitea. Skipping creation."
     else
         echo "Repository $repoName does not exist. Creating repository on Gitea..."
-        
+
         # Create the repository on Gitea (user account)
         url="$giteaUrl/api/v1/user/repos"  # Use user repos endpoint
         body=$(jq -n --arg name "$repoName" --argjson private true '{name: $name, private: $private}')
@@ -54,7 +53,7 @@ while IFS= read -r repoUrl; do
     cd "$clonePath" || exit
 
     # Set the remote origin to point to the Gitea repository
-    dynamic_gitea_url=$(echo $giteaUrl | tr -d 'http://')
+    dynamic_gitea_url=$(echo $giteaUrl | sed 's|http://||g')
     giteaRepoUrl="http://$user:$token@$dynamic_gitea_url/$user/$repoName.git"
     git remote set-url origin "$giteaRepoUrl"
 
