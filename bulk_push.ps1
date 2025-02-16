@@ -5,7 +5,7 @@ $user = "USERNAME"  # Replace with your Gitea username
 $reposFile = "repos.txt"  # File containing GitHub repos
 
 # Path where you want to store the cloned repos temporarily
-$tempClonePath = "C:\ or changeme"  # Change this path as needed
+$tempClonePath = "C:\$USER\Downloads"  # Change this path as needed
 
 # Read the repository URLs from the file
 $repos = Get-Content $reposFile
