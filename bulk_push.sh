@@ -48,11 +48,13 @@ while IFS= read -r repoUrl; do
         git clone "$repoUrl" "$clonePath"
     fi
 
-    # Push the repository to Gitea
+    # Store original remote origin in variable
+    #original_origin=$(cat $clonePath/.git/config | grep url | sed -e 's|url \=||g' | sed -e 's|^[[:space:]]*||')
+    original_origin=$(git config remote.origin.url)
+
+    # Set the remote origin to point to the Gitea repository and push
     echo "Pushing repository $repoName to Gitea..."
     cd "$clonePath" || exit
-
-    # Set the remote origin to point to the Gitea repository
     dynamic_gitea_url=$(echo $giteaUrl | sed 's|http://||g')
     giteaRepoUrl="http://$user:$token@$dynamic_gitea_url/$user/$repoName.git"
     git remote set-url origin "$giteaRepoUrl"
@@ -60,6 +62,9 @@ while IFS= read -r repoUrl; do
     # Push the content to the Gitea repository
     git push origin --all
     git push origin --tags
+
+    # Reset origin back to original
+    git remote set-url origin "$original_origin"
 
     echo "Repository $repoName pushed to Gitea successfully!"
 done < "$reposFile"
