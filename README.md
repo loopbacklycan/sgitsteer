@@ -55,7 +55,8 @@ This script will first clone the repositories from GitHub and then push them to 
 
     ```bash
     .\bulk_push.ps1
-    or
+    ```
+    ```bash
     bash bulk_push.sh
     ```
 
